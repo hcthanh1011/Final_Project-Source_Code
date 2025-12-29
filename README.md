@@ -477,11 +477,11 @@ Educational project for Yuan Ze University (IBPI Program)
 
 ## 👨‍💻 Author Contact
 
-**Name**: Felix - 范家豪  
-**Student ID**: 1143550  
+**Name**: Chris - Huynh Chan Thanh 
+**Student ID**: 1143565
 **University**: Yuan Ze University, Taiwan  
 **Program**: International Bachelor's Program in Informatics  
-**Email**: phiphi.pham@outlook.com
+**Email**: hcthanh1011@gmail.com
 
 ---
 
