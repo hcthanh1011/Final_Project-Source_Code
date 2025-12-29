@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integrated System - Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item active highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content - Two Columns -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>🚀 Integrated System</h1>
+            <p>Complete face recognition with liveness and pose detection</p>
+          </div>
+          <div class="status-badge live">
+            <span class="status-dot"></span>
+            <span>System Active</span>
+          </div>
+        </header>
+
+        <!-- Two Column Layout -->
+        <div class="two-column-layout">
+          <!-- Left Column - Video (45% width) -->
+          <div class="left-column">
+            <div class="video-panel">
+              <div class="panel-header">
+                <h3>📹 Live Camera Feed</h3>
+              </div>
+              <div class="video-wrapper">
+                <img
+                  src="{{ url_for('video_feed') }}"
+                  alt="Video Stream"
+                  id="videoStream"
+                />
+              </div>
+            </div>
+
+            <div class="info-card" style="margin-top: 16px">
+              <h3
+                style="
+                  font-size: 16px;
+                  margin-bottom: 12px;
+                  color: var(--text-primary);
+                "
+              >
+                🎨 Display Information
+              </h3>
+              <ul style="list-style: none; padding: 0">
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-secondary);
+                    font-size: 13px;
+                  "
+                >
+                  <strong>Green Box:</strong> Known person (confidence ≥ 45%)
+                </li>
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-secondary);
+                    font-size: 13px;
+                  "
+                >
+                  <strong>Red Box:</strong> Unknown person
+                </li>
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-secondary);
+                    font-size: 13px;
+                  "
+                >
+                  <strong>Orange Box:</strong> Fake/Spoof detected
+                </li>
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-secondary);
+                    font-size: 13px;
+                  "
+                >
+                  <strong>Pose Colors:</strong> Green (Straight), Yellow
+                  (Left/Right), Purple (Up/Down)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right Column - Statistics (55% width) -->
+          <div class="right-column">
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-value" id="total-logs">0</div>
+                <div class="stat-label">Total Recognitions</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="unique-persons">0</div>
+                <div class="stat-label">Unique Persons</div>
+              </div>
+            </div>
+
+            <!-- Recognition Logs - ALL POSES -->
+            <div class="logs-panel">
+              <div class="panel-header">
+                <h3>📋 Recognition History</h3>
+              </div>
+              <div class="logs-content">
+                <table class="logs-table">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Name</th>
+                      <th>Confidence</th>
+                      <th>Pose</th>
+                    </tr>
+                  </thead>
+                  <tbody id="logs-body">
+                    <tr>
+                      <td colspan="4" class="loading">Loading data...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="info-panel">
+              <div class="panel-header">
+                <h3>ℹ️ System Configuration</h3>
+              </div>
+              <div class="info-content">
+                <div class="info-row">
+                  <span class="info-label">Recognition Model:</span>
+                  <span class="info-value">InsightFace (buffalo_l)</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Detection Features:</span>
+                  <span class="info-value">Face + Liveness + Pose</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Confidence Threshold:</span>
+                  <span class="info-value">45%</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Liveness Mode:</span>
+                  <span class="info-value">RELAXED</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Logging:</span>
+                  <span class="info-value">All Detections</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features Summary -->
+            <div
+              class="info-card"
+              style="
+                background: linear-gradient(135deg, #f8f9ff 0%, #f0f1ff 100%);
+                border: 2px solid var(--accent-primary);
+                padding: 16px;
+              "
+            >
+              <h3
+                style="
+                  color: var(--accent-primary);
+                  margin-bottom: 12px;
+                  font-size: 16px;
+                "
+              >
+                ✨ Active Features
+              </h3>
+              <ul style="list-style: none; padding: 0">
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-primary);
+                    font-size: 14px;
+                  "
+                >
+                  ✓ Real-time face recognition
+                </li>
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-primary);
+                    font-size: 14px;
+                  "
+                >
+                  ✓ Liveness detection (anti-spoofing)
+                </li>
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-primary);
+                    font-size: 14px;
+                  "
+                >
+                  ✓ Head pose estimation
+                </li>
+                <li
+                  style="
+                    padding: 6px 0;
+                    color: var(--text-primary);
+                    font-size: 14px;
+                  "
+                >
+                  ✓ Automatic logging (5s cooldown)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Info Section -->
+        <div
+          style="
+            margin-top: 32px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+          "
+        >
+          <h3
+            style="
+              margin-bottom: 16px;
+              color: var(--text-primary);
+              text-align: center;
+            "
+          >
+            📚 System Workflow
+          </h3>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 16px;
+            "
+          >
+            <div style="text-align: center; padding: 16px">
+              <div style="font-size: 32px; margin-bottom: 8px">1️⃣</div>
+              <h4
+                style="
+                  font-size: 14px;
+                  margin-bottom: 8px;
+                  color: var(--text-primary);
+                "
+              >
+                Face Detection
+              </h4>
+              <p style="font-size: 13px; color: var(--text-secondary)">
+                InsightFace detects faces in frame
+              </p>
+            </div>
+            <div style="text-align: center; padding: 16px">
+              <div style="font-size: 32px; margin-bottom: 8px">2️⃣</div>
+              <h4
+                style="
+                  font-size: 14px;
+                  margin-bottom: 8px;
+                  color: var(--text-primary);
+                "
+              >
+                Recognition
+              </h4>
+              <p style="font-size: 13px; color: var(--text-secondary)">
+                Matches face with database
+              </p>
+            </div>
+            <div style="text-align: center; padding: 16px">
+              <div style="font-size: 32px; margin-bottom: 8px">3️⃣</div>
+              <h4
+                style="
+                  font-size: 14px;
+                  margin-bottom: 8px;
+                  color: var(--text-primary);
+                "
+              >
+                Liveness Check
+              </h4>
+              <p style="font-size: 13px; color: var(--text-secondary)">
+                Verifies real vs. fake face
+              </p>
+            </div>
+            <div style="text-align: center; padding: 16px">
+              <div style="font-size: 32px; margin-bottom: 8px">4️⃣</div>
+              <h4
+                style="
+                  font-size: 14px;
+                  margin-bottom: 8px;
+                  color: var(--text-primary);
+                "
+              >
+                Pose Detection
+              </h4>
+              <p style="font-size: 13px; color: var(--text-secondary)">
+                Estimates head orientation
+              </p>
+            </div>
+            <div style="text-align: center; padding: 16px">
+              <div style="font-size: 32px; margin-bottom: 8px">5️⃣</div>
+              <h4
+                style="
+                  font-size: 14px;
+                  margin-bottom: 8px;
+                  color: var(--text-primary);
+                "
+              >
+                Auto Logging
+              </h4>
+              <p style="font-size: 13px; color: var(--text-secondary)">
+                Records all detections
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Auto-refresh stats every 2 seconds
+      function updateStats() {
+        fetch("/stats")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              console.error(data.error);
+              return;
+            }
+
+            // Update counters
+            document.getElementById("total-logs").textContent =
+              data.total_logs || 0;
+            document.getElementById("unique-persons").textContent =
+              data.unique_persons || 0;
+
+            // Update table
+            const tbody = document.getElementById("logs-body");
+            if (data.recent_logs && data.recent_logs.length > 0) {
+              tbody.innerHTML = "";
+              data.recent_logs.forEach((log) => {
+                const time = new Date(log[0]);
+                const pose = log[3];
+                const row = `
+                                <tr class="fade-in">
+                                    <td>${time.toLocaleTimeString("en-US", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    })}</td>
+                                    <td><strong>${log[1]}</strong></td>
+                                    <td><span class="confidence-badge">${(
+                                      log[2] * 100
+                                    ).toFixed(0)}%</span></td>
+                                    <td><span class="pose-badge pose-${pose.toLowerCase()}">${pose}</span></td>
+                                </tr>
+                            `;
+                tbody.innerHTML += row;
+              });
+            } else {
+              tbody.innerHTML =
+                '<tr><td colspan="4" class="no-data">No recognition data yet</td></tr>';
+            }
+          })
+          .catch((error) => console.error("Error fetching stats:", error));
+      }
+
+      // Initial load
+      updateStats();
+
+      // Auto-refresh every 2 seconds
+      setInterval(updateStats, 1000);
+
+      // Check video stream
+      const videoStream = document.getElementById("videoStream");
+      videoStream.onerror = function () {
+        console.error("Video stream error");
+      };
+
+      console.log("Integrated system loaded successfully");
+    </script>
+  </body>
+</html>

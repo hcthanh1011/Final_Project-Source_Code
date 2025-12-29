@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Recognition System - Home</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item active">
+            <a href="/">
+              <span class="icon">🏠</span>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect">
+              <span class="icon">📸</span>
+              <span>1. Collect Images</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/clean">
+              <span class="icon">🧹</span>
+              <span>2. Clean Dataset</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/analyze">
+              <span class="icon">📊</span>
+              <span>3. Analyze Pose</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/build">
+              <span class="icon">🤖</span>
+              <span>4. Build Embeddings</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/recognition">
+              <span class="icon">🎯</span>
+              <span>5. Recognition</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/liveness">
+              <span class="icon">👁️</span>
+              <span>6. Liveness Detection</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/pose">
+              <span class="icon">🔄</span>
+              <span>7. Head Pose</span>
+            </a>
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated">
+              <span class="icon">🚀</span>
+              <span>8. Integrated System</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>Welcome to Face Recognition System</h1>
+            <p>Select a module from the menu to get started</p>
+          </div>
+        </header>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Face Recognition</h3>
+            <p>Real-time identification with InsightFace</p>
+            <a href="/recognition" class="btn-primary">Start</a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">👁️</div>
+            <h3>Liveness Detection</h3>
+            <p>Anti-spoofing with movement analysis</p>
+            <a href="/liveness" class="btn-primary">Start</a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Head Pose Detection</h3>
+            <p>Left, Right, Straight orientation</p>
+            <a href="/pose" class="btn-primary">Start</a>
+          </div>
+
+          <div class="feature-card highlight">
+            <div class="feature-icon">🚀</div>
+            <h3>Integrated System</h3>
+            <p>All features in one place</p>
+            <a href="/integrated" class="btn-primary">Launch</a>
+          </div>
+        </div>
+
+        <!-- Workflow Section -->
+        <div class="workflow-section">
+          <h2>Quick Start Workflow</h2>
+          <div class="workflow-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h4>Collect Images</h4>
+              <p>Capture 80 images per person</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <h4>Clean Dataset</h4>
+              <p>Remove bad quality images</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <h4>Build Model</h4>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

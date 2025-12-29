@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clean Dataset - Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>🧹 Clean Dataset Quality</h1>
+            <p>Step 2: Remove blurry or low-quality images</p>
+          </div>
+        </header>
+
+        <div
+          class="info-card"
+          style="
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+          "
+        >
+          <h3 style="color: #1565c0; margin-bottom: 12px">
+            ℹ️ About This Step
+          </h3>
+          <p style="color: #1565c0; font-size: 14px">
+            This module automatically detects and removes low-quality images
+            from your dataset to improve recognition accuracy.
+          </p>
+        </div>
+
+        <div class="workflow-section">
+          <h2>How to Clean Dataset</h2>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">1</div>
+            <h4>Run Cleaning Script</h4>
+            <p>Execute the dataset quality cleaner</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              python dataset_quality_cleaner.py
+            </div>
+          </div>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">2</div>
+            <h4>Review Results</h4>
+            <p>Check the console output for cleaning statistics</p>
+            <ul style="list-style: none; padding-left: 0; margin-top: 12px">
+              <li style="padding: 8px 0; color: #636e72">
+                • Total images scanned
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Blurry images removed
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Low brightness removed
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Final image count
+              </li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>Verify Quality</h4>
+            <p>Manually check remaining images if needed</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              # Check image count per person<br />
+              python test_dataset.py
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid" style="margin-top: 32px">
+          <div class="info-card">
+            <h3>🔍 Detection Criteria</h3>
+            <ul>
+              <li>Blur detection (Laplacian)</li>
+              <li>Brightness analysis</li>
+              <li>Face detection confidence</li>
+              <li>Image resolution check</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>⚙️ Thresholds</h3>
+            <ul>
+              <li>Blur threshold: &lt; 100</li>
+              <li>Brightness: 40-200</li>
+              <li>Min resolution: 64x64</li>
+              <li>Face confidence: &gt; 0.5</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>📊 Expected Results</h3>
+            <ul>
+              <li>5-10% images removed</li>
+              <li>Better training quality</li>
+              <li>Improved accuracy</li>
+              <li>Faster training time</li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 32px;
+            text-align: center;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+          "
+        >
+          <a
+            href="/collect"
+            class="btn-primary"
+            style="padding: 12px 32px; background: #95a5a6"
+          >
+            ← Previous Step
+          </a>
+          <a href="/analyze" class="btn-primary" style="padding: 12px 32px">
+            Next Step: Analyze Pose →
+          </a>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

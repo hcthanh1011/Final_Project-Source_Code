@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face Recognition - System</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>🎯 Real-time Face Recognition</h1>
+            <p>Identify faces with confidence scores</p>
+          </div>
+          <div class="status-badge live">
+            <span class="status-dot"></span>
+            <span>System Active</span>
+          </div>
+        </header>
+
+        <!-- Two Column Layout -->
+        <div class="two-column-layout">
+          <!-- Left - Video -->
+          <div class="left-column">
+            <div class="video-panel">
+              <div class="panel-header">
+                <h3>📹 Live Camera Feed</h3>
+              </div>
+              <div class="video-wrapper">
+                <img src="{{ url_for('video_feed') }}" alt="Video Stream" />
+              </div>
+            </div>
+
+            <div class="info-card">
+              <h3>🎨 Color Coding</h3>
+              <ul style="list-style: none; padding: 0">
+                <li
+                  style="
+                    padding: 8px;
+                    margin: 8px 0;
+                    background: #e8f5e9;
+                    border-radius: 8px;
+                  "
+                >
+                  <strong style="color: #2e7d32">🟢 Green:</strong> Known Person
+                  (Confidence ≥ 45%)
+                </li>
+                <li
+                  style="
+                    padding: 8px;
+                    margin: 8px 0;
+                    background: #ffebee;
+                    border-radius: 8px;
+                  "
+                >
+                  <strong style="color: #c62828">🔴 Red:</strong> Unknown Person
+                  (Confidence &lt; 45%)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right - Stats -->
+          <div class="right-column">
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-value" id="total-logs">0</div>
+                <div class="stat-label">Total Recognitions</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="unique-persons">0</div>
+                <div class="stat-label">Unique Persons</div>
+              </div>
+            </div>
+
+            <div class="logs-panel">
+              <div class="panel-header">
+                <h3>📋 Recognition History</h3>
+              </div>
+              <div class="logs-content">
+                <table class="logs-table">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Name</th>
+                      <th>Confidence</th>
+                      <th>Pose</th>
+                    </tr>
+                  </thead>
+                  <tbody id="logs-body">
+                    <tr>
+                      <td colspan="4" class="loading">Loading...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="info-panel">
+              <div class="panel-header">
+                <h3>ℹ️ System Information</h3>
+              </div>
+              <div class="info-content">
+                <div class="info-row">
+                  <span class="info-label">Model:</span>
+                  <span class="info-value">InsightFace (buffalo_l)</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Threshold:</span>
+                  <span class="info-value">45%</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Features:</span>
+                  <span class="info-value">Recognition Only</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      function updateStats() {
+        fetch("/stats")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) return;
+
+            document.getElementById("total-logs").textContent =
+              data.total_logs || 0;
+            document.getElementById("unique-persons").textContent =
+              data.unique_persons || 0;
+
+            const tbody = document.getElementById("logs-body");
+            if (data.recent_logs && data.recent_logs.length > 0) {
+              tbody.innerHTML = "";
+              data.recent_logs.forEach((log) => {
+                const time = new Date(log[0]);
+                tbody.innerHTML += `
+                                <tr class="fade-in">
+                                    <td>${time.toLocaleTimeString("en-US", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                    })}</td>
+                                    <td><strong>${log[1]}</strong></td>
+                                    <td><span class="confidence-badge">${(
+                                      log[2] * 100
+                                    ).toFixed(0)}%</span></td>
+                                    <td><span class="pose-badge pose-${log[3].toLowerCase()}">${
+                  log[3]
+                }</span></td>
+                                </tr>
+                            `;
+              });
+            } else {
+              tbody.innerHTML =
+                '<tr><td colspan="4" class="no-data">No data yet</td></tr>';
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      updateStats();
+      setInterval(updateStats, 2000);
+    </script>
+  </body>
+</html>

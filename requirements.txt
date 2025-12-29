@@ -1,0 +1,63 @@
+# ============================================
+# FACE RECOGNITION SYSTEM - DEPENDENCIES
+# ============================================
+# Updated: December 2025
+# Compatible: Windows 10/11, macOS (Intel/Apple Silicon), Linux
+
+# ============================================
+# CORE DEPENDENCIES
+# ============================================
+
+# Computer Vision
+opencv-python>=4.8.0,<5.0.0
+# Note: Use opencv-contrib-python if you need extra modules
+
+# Numerical Computing
+numpy>=1.24.0,<2.0.0
+
+# InsightFace - Face Recognition
+insightface>=0.7.3
+
+# ============================================
+# ONNX RUNTIME - Choose based on your system
+# ============================================
+
+# DEFAULT: CPU-only (works on all platforms)
+onnxruntime>=1.16.0
+
+# GPU Support (NVIDIA CUDA):
+# Uncomment below and comment CPU version if you have NVIDIA GPU
+# onnxruntime-gpu>=1.16.0
+
+# Apple Silicon (M1/M2/M3):
+# No special version needed - default onnxruntime works
+# For optimization, ensure you're using Python 3.9+ arm64 version
+
+# ============================================
+# MACHINE LEARNING
+# ============================================
+scikit-learn>=1.3.0
+
+# ============================================
+# DATA HANDLING & VISUALIZATION
+# ============================================
+matplotlib>=3.7.0
+Pillow>=10.0.0
+
+# ============================================
+# PLATFORM-SPECIFIC DEPENDENCIES
+# ============================================
+
+# Windows only - COM object support
+pywin32>=305; platform_system=="Windows"
+
+# ============================================
+# DEVELOPMENT TOOLS (Optional)
+# ============================================
+# Uncomment if you need these for development
+
+# ipython>=8.0.0
+# jupyter>=1.0.0
+# pytest>=7.0.0
+# flask==3.0.0
+# flask-cors==4.0.0

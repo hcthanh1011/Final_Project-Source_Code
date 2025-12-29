@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liveness Detection - Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>👁️ Liveness Detection</h1>
+            <p>Anti-spoofing with movement analysis</p>
+          </div>
+          <div class="status-badge live">
+            <span class="status-dot"></span>
+            <span>System Active</span>
+          </div>
+        </header>
+
+        <!-- Two Column Layout -->
+        <div class="two-column-layout">
+          <!-- Left - Video -->
+          <div class="left-column">
+            <div class="video-panel">
+              <div class="panel-header">
+                <h3>📹 Live Camera Feed</h3>
+              </div>
+              <div class="video-wrapper">
+                <img src="{{ url_for('video_feed') }}" alt="Video Stream" />
+              </div>
+            </div>
+
+            <div class="info-card">
+              <h3>🎨 Liveness Status</h3>
+              <ul style="list-style: none; padding: 0">
+                <li
+                  style="
+                    padding: 8px;
+                    margin: 8px 0;
+                    background: #e8f5e9;
+                    border-radius: 8px;
+                  "
+                >
+                  <strong style="color: #2e7d32">🟢 LIVE:</strong> Real person
+                  detected
+                </li>
+                <li
+                  style="
+                    padding: 8px;
+                    margin: 8px 0;
+                    background: #fff3e0;
+                    border-radius: 8px;
+                  "
+                >
+                  <strong style="color: #e65100">🟠 FAKE:</strong> Possible
+                  spoof detected
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right - Info -->
+          <div class="right-column">
+            <div class="info-panel">
+              <div class="panel-header">
+                <h3>🔍 Detection Methods</h3>
+              </div>
+              <div class="info-content">
+                <div
+                  style="
+                    padding: 16px 0;
+                    border-bottom: 1px solid var(--border-color);
+                  "
+                >
+                  <h4
+                    style="
+                      color: var(--text-primary);
+                      margin-bottom: 8px;
+                      font-size: 15px;
+                    "
+                  >
+                    1. Movement Analysis
+                  </h4>
+                  <p style="color: var(--text-secondary); font-size: 14px">
+                    Detects natural head movements and micro-expressions
+                  </p>
+                </div>
+                <div
+                  style="
+                    padding: 16px 0;
+                    border-bottom: 1px solid var(--border-color);
+                  "
+                >
+                  <h4
+                    style="
+                      color: var(--text-primary);
+                      margin-bottom: 8px;
+                      font-size: 15px;
+                    "
+                  >
+                    2. Depth Changes
+                  </h4>
+                  <p style="color: var(--text-secondary); font-size: 14px">
+                    Monitors face size variations from depth movement
+                  </p>
+                </div>
+                <div style="padding: 16px 0">
+                  <h4
+                    style="
+                      color: var(--text-primary);
+                      margin-bottom: 8px;
+                      font-size: 15px;
+                    "
+                  >
+                    3. Eye Blink Detection
+                  </h4>
+                  <p style="color: var(--text-secondary); font-size: 14px">
+                    Tracks eye distance changes to detect blinking
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-panel">
+              <div class="panel-header">
+                <h3>⚙️ Detection Settings (Relaxed)</h3>
+              </div>
+              <div class="info-content">
+                <div class="info-row">
+                  <span class="info-label">Movement Threshold:</span>
+                  <span class="info-value">&gt; 1 pixel</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Size Change:</span>
+                  <span class="info-value">&gt; 2%</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Eye Change:</span>
+                  <span class="info-value">&gt; 3%</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Min Score:</span>
+                  <span class="info-value">1 point</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-panel">
+              <div class="panel-header">
+                <h3>💡 How to Pass Liveness Check</h3>
+              </div>
+              <div class="info-content">
+                <ul style="list-style: none; padding: 0">
+                  <li
+                    style="
+                      padding: 8px 0;
+                      color: var(--text-secondary);
+                      font-size: 14px;
+                    "
+                  >
+                    ✓ Move your head slightly (left/right)
+                  </li>
+                  <li
+                    style="
+                      padding: 8px 0;
+                      color: var(--text-secondary);
+                      font-size: 14px;
+                    "
+                  >
+                    ✓ Move closer or farther from camera
+                  </li>
+                  <li
+                    style="
+                      padding: 8px 0;
+                      color: var(--text-secondary);
+                      font-size: 14px;
+                    "
+                  >
+                    ✓ Blink naturally
+                  </li>
+                  <li
+                    style="
+                      padding: 8px 0;
+                      color: var(--text-secondary);
+                      font-size: 14px;
+                    "
+                  >
+                    ✓ Avoid staying completely still
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="info-card"
+              style="
+                background: #e3f2fd;
+                border-left: 4px solid #2196f3;
+                padding: 16px;
+              "
+            >
+              <h4 style="color: #1565c0; margin-bottom: 8px">ℹ️ Note</h4>
+              <p style="color: #1565c0; font-size: 13px">
+                Liveness detection is set to RELAXED mode for easier testing.
+                The system requires minimal movement to pass the check.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 32px; text-align: center">
+          <a href="/integrated" class="btn-primary" style="padding: 12px 32px">
+            Try Full System (Recognition + Liveness + Pose) →
+          </a>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Optional: Add real-time stats if needed
+      console.log("Liveness detection page loaded");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Head Pose Detection - Face Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>🎭 Face Recognition</h2>
+                <p class="subtitle">AI Detection Project</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/"><span class="icon">🏠</span><span>Home</span></a></li>
+                <li class="nav-item"><a href="/collect"><span class="icon">📸</span><span>1. Collect Images</span></a></li>
+                <li class="nav-item"><a href="/clean"><span class="icon">🧹</span><span>2. Clean Dataset</span></a></li>
+                <li class="nav-item"><a href="/analyze"><span class="icon">📊</span><span>3. Analyze Pose</span></a></li>
+                <li class="nav-item"><a href="/build"><span class="icon">🤖</span><span>4. Build Embeddings</span></a></li>
+                <li class="nav-item"><a href="/recognition"><span class="icon">🎯</span><span>5. Recognition</span></a></li>
+                <li class="nav-item"><a href="/liveness"><span class="icon">👁️</span><span>6. Liveness Detection</span></a></li>
+                <li class="nav-item active"><a href="/pose"><span class="icon">🔄</span><span>7. Head Pose</span></a></li>
+                <li class="nav-item highlight"><a href="/integrated"><span class="icon">🚀</span><span>8. Integrated System</span></a></li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p>Group 9</p>
+                <p class="small">Yuan Ze University</p>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>🔄 Head Pose Detection</h1>
+                    <p>Detect head orientation: Left, Right, Straight, Up, Down</p>
+                </div>
+                <div class="status-badge live">
+                    <span class="status-dot"></span>
+                    <span>System Active</span>
+                </div>
+            </header>
+            
+            <!-- Two Column Layout -->
+            <div class="two-column-layout">
+                <!-- Left - Video -->
+                <div class="left-column">
+                    <div class="video-panel">
+                        <div class="panel-header">
+                            <h3>📹 Live Camera Feed</h3>
+                        </div>
+                        <div class="video-wrapper">
+                            <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>🎨 Pose Color Coding</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px; margin: 8px 0; background: #E8F5E9; border-radius: 8px;">
+                                <strong style="color: #2E7D32;">🟢 Straight:</strong> Face looking forward
+                            </li>
+                            <li style="padding: 8px; margin: 8px 0; background: #FFF3E0; border-radius: 8px;">
+                                <strong style="color: #EF6C00;">🟠 Left:</strong> Head turned left
+                            </li>
+                            <li style="padding: 8px; margin: 8px 0; background: #E3F2FD; border-radius: 8px;">
+                                <strong style="color: #1976D2;">🔵 Right:</strong> Head turned right
+                            </li>
+                            <li style="padding: 8px; margin: 8px 0; background: #F3E5F5; border-radius: 8px;">
+                                <strong style="color: #7B1FA2;">🟣 Up:</strong> Looking up
+                            </li>
+                            <li style="padding: 8px; margin: 8px 0; background: #FCE4EC; border-radius: 8px;">
+                                <strong style="color: #C2185B;">🔴 Down:</strong> Looking down
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Right - Info -->
+                <div class="right-column">
+                    <div class="info-panel">
+                        <div class="panel-header">
+                            <h3>🎯 Detection Method</h3>
+                        </div>
+                        <div class="info-content">
+                            <h4 style="color: var(--text-primary); margin-bottom: 12px; font-size: 16px;">Landmark-Based Detection</h4>
+                            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+                                The system uses InsightFace's 5-point facial landmarks (2 eyes, 1 nose, 2 mouth corners) to calculate head orientation based on geometric relationships.
+                            </p>
+                            
+                            <div style="padding: 16px; background: var(--bg-hover); border-radius: 8px; margin-top: 16px;">
+                                <h5 style="color: var(--text-primary); margin-bottom: 8px; font-size: 14px;">Yaw (Left/Right):</h5>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Calculated from horizontal offset of nose relative to eye center</p>
+                                
+                                <h5 style="color: var(--text-primary); margin: 12px 0 8px; font-size: 14px;">Pitch (Up/Down):</h5>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Calculated from vertical offset of nose relative to eye center</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <div class="panel-header">
+                            <h3>⚙️ Detection Thresholds</h3>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-row">
+                                <span class="info-label">Left Threshold:</span>
+                                <span class="info-value">&lt; -0.10</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Right Threshold:</span>
+                                <span class="info-value">&gt; 0.10</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Up Threshold:</span>
+                                <span class="info-value">&lt; -0.08</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Down Threshold:</span>
+                                <span class="info-value">&gt; 0.08</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Straight Range:</span>
+                                <span class="info-value">-0.10 to 0.10</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-panel">
+                        <div class="panel-header">
+                            <h3>🎓 Team Contributions</h3>
+                        </div>
+                        <div class="info-content">
+                            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 14px;">Member 1</h4>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Face Recognition Module</p>
+                            </div>
+                            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 14px;">Member 2</h4>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Left Rotation Detection</p>
+                            </div>
+                            <div style="padding: 12px 0;">
+                                <h4 style="color: var(--text-primary); margin-bottom: 4px; font-size: 14px;">Member 3</h4>
+                                <p style="color: var(--text-secondary); font-size: 13px;">Right Rotation Detection</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card" style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 16px;">
+                        <h4 style="color: #2E7D32; margin-bottom: 8px;">✅ Applications</h4>
+                        <p style="color: #2E7D32; font-size: 13px; line-height: 1.5;">
+                            Head pose detection is useful for attention monitoring, driver drowsiness detection, AR/VR applications, and improving face recognition accuracy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 32px; text-align: center;">
+                <a href="/integrated" class="btn-primary" style="padding: 12px 32px;">
+                    Try Full System (Recognition + Liveness + Pose) →
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        console.log('Head pose detection page loaded');
+    </script>
+</body>
+</html>

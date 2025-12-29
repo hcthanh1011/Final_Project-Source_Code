@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collect Images - Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item active">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>📸 Collect Face Images</h1>
+            <p>Step 1: Capture training images for face recognition</p>
+          </div>
+        </header>
+
+        <div
+          class="info-card"
+          style="
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+          "
+        >
+          <h3 style="color: #e65100; margin-bottom: 12px">⚠️ Important Note</h3>
+          <p style="color: #e65100; font-size: 14px">
+            This feature requires terminal/command line access. Please run the
+            following command:
+          </p>
+        </div>
+
+        <div class="workflow-section">
+          <h2>How to Collect Images</h2>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">1</div>
+            <h4>Open Terminal</h4>
+            <p>Navigate to your project directory</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              cd /path/to/FaceRecognitionProject
+            </div>
+          </div>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">2</div>
+            <h4>Run Collection Script</h4>
+            <p>Execute the image collection module</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              python collect_images.py
+            </div>
+          </div>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">3</div>
+            <h4>Follow Instructions</h4>
+            <p>Enter person's name and capture 80 images</p>
+            <ul style="list-style: none; padding-left: 0; margin-top: 12px">
+              <li style="padding: 8px 0; color: #636e72">
+                • Look at camera directly
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Move head slightly (left, right, up, down)
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Vary facial expressions
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Ensure good lighting
+              </li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <h4>Verify Dataset</h4>
+            <p>Check the dataset folder for collected images</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              ls -la dataset/
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid" style="margin-top: 32px">
+          <div class="info-card">
+            <h3>📋 Requirements</h3>
+            <ul>
+              <li>Working webcam</li>
+              <li>Good lighting conditions</li>
+              <li>Clear background</li>
+              <li>80 images per person</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>✅ Best Practices</h3>
+            <ul>
+              <li>Center face in frame</li>
+              <li>Vary head positions</li>
+              <li>Include different expressions</li>
+              <li>Avoid wearing glasses (optional)</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>📁 Output Location</h3>
+            <ul>
+              <li>Folder: <code>dataset/</code></li>
+              <li>Subfolder: <code>dataset/[name]/</code></li>
+              <li>Format: JPG images</li>
+              <li>Count: 80 per person</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 32px; text-align: center">
+          <a
+            href="/clean"
+            class="btn-primary"
+            style="padding: 12px 32px; font-size: 16px"
+          >
+            Next Step: Clean Dataset →
+          </a>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

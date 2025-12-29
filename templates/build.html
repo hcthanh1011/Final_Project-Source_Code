@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Build Embeddings - Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>🤖 Build Face Embeddings</h1>
+            <p>Step 4: Train the recognition model</p>
+          </div>
+        </header>
+
+        <div
+          class="info-card"
+          style="
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+          "
+        >
+          <h3 style="color: #2e7d32; margin-bottom: 12px">
+            🎓 What are Embeddings?
+          </h3>
+          <p style="color: #2e7d32; font-size: 14px">
+            Face embeddings are 512-dimensional vectors that represent unique
+            features of each face, enabling fast and accurate recognition.
+          </p>
+        </div>
+
+        <div class="workflow-section">
+          <h2>How to Build Embeddings</h2>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">1</div>
+            <h4>Run Build Script</h4>
+            <p>Execute the embedding builder (may take several minutes)</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              python build_embeddings.py
+            </div>
+          </div>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">2</div>
+            <h4>Wait for Processing</h4>
+            <p>The script will process all images in the dataset</p>
+            <ul style="list-style: none; padding-left: 0; margin-top: 12px">
+              <li style="padding: 8px 0; color: #636e72">
+                • Loading InsightFace model...
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Processing person 1/N...
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Extracting embeddings...
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Saving to pickle file...
+              </li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>Verify Output</h4>
+            <p>Check if embeddings file was created successfully</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              ls -lh models/insightface_embeddings.pickle
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid" style="margin-top: 32px">
+          <div class="info-card">
+            <h3>⏱️ Processing Time</h3>
+            <ul>
+              <li>1 person (80 imgs): ~30s</li>
+              <li>5 people: ~2-3 minutes</li>
+              <li>10 people: ~5 minutes</li>
+              <li>Depends on CPU speed</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>📦 Output Files</h3>
+            <ul>
+              <li><code>insightface_embeddings.pickle</code></li>
+              <li>Location: <code>models/</code></li>
+              <li>Size: ~1-5 MB</li>
+              <li>Format: Pickle (NumPy)</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>✅ Success Indicators</h3>
+            <ul>
+              <li>"✅ Model loaded" message</li>
+              <li>All persons processed</li>
+              <li>No error messages</li>
+              <li>Pickle file created</li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 32px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+          "
+        >
+          <h3 style="margin-bottom: 16px; color: var(--text-primary)">
+            🚀 Ready to Test!
+          </h3>
+          <p style="color: var(--text-secondary); margin-bottom: 16px">
+            Once embeddings are built, you can start using the recognition
+            system:
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+            <a href="/recognition" class="btn-primary">Face Recognition</a>
+            <a href="/liveness" class="btn-primary">Liveness Detection</a>
+            <a href="/pose" class="btn-primary">Head Pose</a>
+            <a
+              href="/integrated"
+              class="btn-primary"
+              style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              "
+              >Integrated System</a
+            >
+          </div>
+        </div>
+
+        <div style="margin-top: 32px; text-align: center">
+          <a
+            href="/analyze"
+            class="btn-primary"
+            style="padding: 12px 32px; background: #95a5a6"
+          >
+            ← Previous Step
+          </a>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

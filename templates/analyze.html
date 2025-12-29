@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analyze Pose - Face Recognition</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🎭 Face Recognition</h2>
+          <p class="subtitle">AI Detection Project</p>
+        </div>
+
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/"><span class="icon">🏠</span><span>Home</span></a>
+          </li>
+          <li class="nav-item">
+            <a href="/collect"
+              ><span class="icon">📸</span><span>1. Collect Images</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/clean"
+              ><span class="icon">🧹</span><span>2. Clean Dataset</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a href="/analyze"
+              ><span class="icon">📊</span><span>3. Analyze Pose</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/build"
+              ><span class="icon">🤖</span><span>4. Build Embeddings</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/recognition"
+              ><span class="icon">🎯</span><span>5. Recognition</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/liveness"
+              ><span class="icon">👁️</span><span>6. Liveness Detection</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/pose"
+              ><span class="icon">🔄</span><span>7. Head Pose</span></a
+            >
+          </li>
+          <li class="nav-item highlight">
+            <a href="/integrated"
+              ><span class="icon">🚀</span><span>8. Integrated System</span></a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <p>Group 9</p>
+          <p class="small">Yuan Ze University</p>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <h1>📊 Analyze Pose Distribution</h1>
+            <p>Step 3: Check head pose variety in dataset</p>
+          </div>
+        </header>
+
+        <div
+          class="info-card"
+          style="
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 20px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+          "
+        >
+          <h3 style="color: #6a1b9a; margin-bottom: 12px">
+            📈 Why Analyze Pose?
+          </h3>
+          <p style="color: #6a1b9a; font-size: 14px">
+            Analyzing pose distribution ensures your dataset has diverse head
+            orientations, improving recognition accuracy from different angles.
+          </p>
+        </div>
+
+        <div class="workflow-section">
+          <h2>How to Analyze Dataset</h2>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">1</div>
+            <h4>Run Analysis Script</h4>
+            <p>Execute the pose distribution analyzer</p>
+            <div
+              style="
+                background: #2d3436;
+                color: #00ff00;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                font-family: monospace;
+              "
+            >
+              python dataset_pose_analyzer.py
+            </div>
+          </div>
+
+          <div class="step" style="margin-bottom: 24px">
+            <div class="step-number">2</div>
+            <h4>Review Statistics</h4>
+            <p>Check the pose distribution report</p>
+            <ul style="list-style: none; padding-left: 0; margin-top: 12px">
+              <li style="padding: 8px 0; color: #636e72">
+                • Straight poses: 40-50%
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Left poses: 20-30%
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Right poses: 20-30%
+              </li>
+              <li style="padding: 8px 0; color: #636e72">
+                • Other poses: &lt; 10%
+              </li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h4>Collect More If Needed</h4>
+            <p>If distribution is imbalanced, collect more images</p>
+            <div
+              style="
+                background: #fff3e0;
+                padding: 16px;
+                border-radius: 8px;
+                margin-top: 12px;
+                border-left: 4px solid #ff9800;
+              "
+            >
+              <strong style="color: #e65100">Tip:</strong>
+              <span style="color: #e65100"
+                >Aim for at least 20% of images in each pose category (Left,
+                Right, Straight)</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid" style="margin-top: 32px">
+          <div class="info-card">
+            <h3>🎯 Ideal Distribution</h3>
+            <ul>
+              <li>Straight: 40-50%</li>
+              <li>Left: 20-30%</li>
+              <li>Right: 20-30%</li>
+              <li>Up/Down: 10-15%</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>⚠️ Warning Signs</h3>
+            <ul>
+              <li>&gt; 80% one pose</li>
+              <li>&lt; 10% any direction</li>
+              <li>No variation detected</li>
+              <li>Insufficient images</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h3>✅ Good Dataset</h3>
+            <ul>
+              <li>Balanced distribution</li>
+              <li>Multiple angles</li>
+              <li>Clear face detection</li>
+              <li>70+ images per person</li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 32px;
+            text-align: center;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+          "
+        >
+          <a
+            href="/clean"
+            class="btn-primary"
+            style="padding: 12px 32px; background: #95a5a6"
+          >
+            ← Previous Step
+          </a>
+          <a href="/build" class="btn-primary" style="padding: 12px 32px">
+            Next Step: Build Embeddings →
+          </a>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
